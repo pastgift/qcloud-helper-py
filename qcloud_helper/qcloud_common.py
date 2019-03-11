@@ -12,7 +12,7 @@ import urllib
 import requests
 
 # Project Modules
-from . import parse_response
+from . import parse_response, ensure_str
 
 PRODUCT_API_CONFIG_MAP = {
     'cvm': {
@@ -156,8 +156,8 @@ class QCloudCommon(object):
     QCloud common HTTP API
     '''
     def __init__(self, secret_id=None, secret_key=None, *args, **kwargs):
-        self.secret_id     = str(secret_id)
-        self.secret_key = str(secret_key)
+        self.secret_id  = ensure_str(secret_id)
+        self.secret_key = ensure_str(secret_key)
 
     def sign(self, domain, params_to_sign):
         canonicalized_query_string = ''

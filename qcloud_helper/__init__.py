@@ -5,6 +5,16 @@ import json
 
 # 3rd-part Modules
 import xmltodict
+from retry import retry
+import requests
+
+retry_for_requests = retry((requests.ConnectionError, requests.Timeout), tries=3, delay=1, backoff=2, jitter=(1, 2))
+
+def ensure_str(s):
+    if isinstance(s, unicode):
+        return s.encode('utf8')
+    else:
+        return str(s).decode('utf8').encode('utf8')
 
 def parse_response(response):
     resp_content_type = response.headers.get('content-type') or ''
@@ -25,7 +35,7 @@ def parse_response(response):
                 return xmltodict.parse(response.text)
 
             except xmltodict.expat.ExpatError:
-                return response.text
+                return response.content
 
             except:
                 raise

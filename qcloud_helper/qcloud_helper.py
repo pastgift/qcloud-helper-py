@@ -6,6 +6,7 @@ import json
 import uuid
 
 # Project Modules
+from . import retry_for_requests
 from qcloud_common import QCloudCommon
 
 def get_config(c):
@@ -22,6 +23,6 @@ class QCloudHelper(object):
     def verify(self):
         return self.common_client.verify()
 
-    def common(self, product, timeout=3, **biz_params):
+    @retry_for_requests
+    def common(self, product, timeout=10, **biz_params):
         return self.common_client.__getattr__(product)(timeout=timeout, **biz_params)
-
