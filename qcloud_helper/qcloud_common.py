@@ -8,7 +8,7 @@ import time
 import random
 import urllib
 
-# 3rd-part Modules
+# 3rd-party Modules
 import requests
 
 # Project Modules

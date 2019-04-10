@@ -3,7 +3,7 @@
 # Build-in Modules
 import json
 
-# 3rd-part Modules
+# 3rd-party Modules
 import xmltodict
 from retry import retry
 import requests
